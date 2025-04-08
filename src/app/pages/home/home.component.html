@@ -1,0 +1,409 @@
+<div class="hero-section">
+  <div class="container py-5">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6 order-lg-1 order-2">
+        <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInDown">Report Illegal Dumping</h1>
+        <p class="lead mb-4 animate__animated animate__fadeIn animate__delay-1s">
+          Help keep your community clean by reporting illegal waste dumping activities.
+          Together we can make a difference!
+        </p>
+        <div class="d-grid gap-3 d-sm-flex animate__animated animate__fadeInUp animate__delay-1s">
+          <a routerLink="/report-dumping" mat-raised-button class="px-4 btn-pulse" style="background-color: #c87373; color: white; font-weight: 600;" >
+            <span class="btn-content">
+              <mat-icon>report</mat-icon>
+              Report Now
+            </span>
+          </a>
+          <a routerLink="/events" mat-stroked-button  class="px-4" style="color: #c87373; font-weight: 800;">
+            <span class="btn-content">
+              Join Event
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-6 order-lg-2 order-1 animate__animated animate__fadeInRight">
+        <div class="hero-image-container">
+          <img src="assets/images/hero.jpg" alt="Clean Earth" class="img-fluid rounded-3 shadow floating">
+          <div class="hero-image-overlay"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="hero-wave">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="currentColor"></path>
+      <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="currentColor"></path>
+      <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="currentColor"></path>
+    </svg>
+  </div> -->
+</div>
+
+<div class="container my-5">
+  <div class="row g-4 mb-5 stats-container">
+    <div *ngFor="let stat of stats" class="col-md-4">
+      <mat-card class="h-100 text-center p-4 stat-card" style="background:#388e3c">
+        <div class="stat-icon-container">
+          <mat-icon class="stat-icon">{{stat.icon}}</mat-icon>
+        </div>
+        <h2 class="display-5 fw-bold  counter" style="color: white;">
+          {{stat.current}}
+        </h2>
+        <p class="mb-0" style="color: #054a2a;">{{ stat.label }}</p>
+      </mat-card>
+    </div>
+  </div>
+   <!-- About Section -->
+   <section class="about-section py-5 bg-light">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <div class="about-image-container">
+            <img src="assets/images/about.jpg" alt="About Our Mission" class="img-fluid rounded-3 shadow">
+            <div class="about-image-badge">
+              <mat-icon>eco</mat-icon>
+              <span>Since 2015</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h2 class="section-title mb-4">About Our Initiative</h2>
+          <p class="lead text-muted">We're committed to creating cleaner, healthier communities by combating illegal dumping through technology and community engagement.</p>
+          <div class="about-features">
+            <div class="about-feature-item">
+              <mat-icon class="about-feature-icon">verified</mat-icon>
+              <div>
+                <h4>Verified Reporting</h4>
+                <p class="text-muted">Our system ensures all reports are verified by local authorities.</p>
+              </div>
+            </div>
+            <div class="about-feature-item">
+              <mat-icon class="about-feature-icon">groups</mat-icon>
+              <div>
+                <h4>Community Powered</h4>
+                <p class="text-muted">Over 50,000 volunteers across 120 communities.</p>
+              </div>
+            </div>
+            <div class="about-feature-item">
+              <mat-icon class="about-feature-icon">public</mat-icon>
+              <div>
+                <h4>Global Impact</h4>
+                <p class="text-muted">Recognized by UNEP for environmental innovation.</p>
+                <div class="about-image-badge">
+                  <mat-icon>eco</mat-icon>
+                  <a routerLink="/about"><span>Learn More</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <h2 class="text-center mb-5 section-title">How It Works</h2>
+  <div class="row g-4 features-container">
+    <div *ngFor="let feature of features" class="col-md-4">
+      <mat-card class="h-100 p-4 text-center feature-card">
+        <div class="feature-icon-container">
+          <mat-icon class="feature-icon">{{ feature.icon }}</mat-icon>
+        </div>
+        <h3 class="mt-3">{{ feature.title }}</h3>
+        <p>{{ feature.description }}</p>
+        <div class="feature-underline"></div>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+
+<!-- Educational Section -->
+<section id="impact" class="impact-section py-5 position-relative overflow-hidden">
+  <div class="impact-section-overlay"></div>
+  <div class="container position-relative z-index-2">
+    <h2 class="text-center mb-5 section-title text-white">The Impact of Illegal Dumping</h2>
+    <div class="row g-4 justify-content-center">
+      <!-- Environmental Impact Card -->
+      <div class="col-md-6 col-lg-4 col-xl-3">
+        <mat-card class="h-100 impact-card">
+          <div class="impact-card-header environmental">
+            <img src="assets/images/environment-impact.jpg" alt="Environmental Impact" class="img-fluid w-100">
+          </div>
+          <div class="impact-card-body">
+            <h3 class="impact-card-title">Environmental Damage</h3>
+            <p class="impact-card-text">Illegal dumping contaminates soil and water sources, harms wildlife, and contributes to climate change through methane emissions from decomposing waste.</p>
+            <div class="impact-stat">
+              <span class="impact-stat-number">40%</span>
+              <span class="impact-stat-label">of freshwater pollution comes from illegal dumping</span>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+      
+      <!-- Health Impact Card -->
+      <div class="col-md-6 col-lg-4 col-xl-3">
+        <mat-card class="h-100 impact-card">
+          <div class="impact-card-header health">
+            <img src="assets/images/health-impact.png" alt="Health Impact" class="img-fluid w-100">
+          </div>
+          <div class="impact-card-body">
+            <h3 class="impact-card-title">Public Health Risks</h3>
+            <p class="impact-card-text">Dumped waste attracts pests, creates breeding grounds for mosquitoes, and can expose communities to hazardous materials and toxic substances.</p>
+            <div class="impact-stat">
+              <span class="impact-stat-number">28%</span>
+              <span class="impact-stat-label">increase in disease vectors near dump sites</span>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+      
+      <!-- Economic Impact Card -->
+      <div class="col-md-6 col-lg-4 col-xl-3">
+        <mat-card class="h-100 impact-card">
+          <div class="impact-card-header economic">
+            <img src="assets/images/economic-impact.png" alt="Economic Impact" class="img-fluid w-100">
+          </div>
+          <div class="impact-card-body">
+            <h3 class="impact-card-title">Economic Costs</h3>
+            <p class="impact-card-text">Taxpayers bear the burden of cleanup costs, while property values decline in areas affected by illegal dumping.</p>
+            <div class="impact-stat">
+              <span class="impact-stat-number">$11B</span>
+              <span class="impact-stat-label">annual cleanup costs nationwide</span>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+      
+      <!-- Community Impact Card -->
+      <div class="col-md-6 col-lg-4 col-xl-3">
+        <mat-card class="h-100 impact-card">
+          <div class="impact-card-header wildlife">
+            <img src="assets/images/community-impact.jpg" alt="Community Impact" class="img-fluid w-100">
+          </div>
+          <div class="impact-card-body">
+            <h3 class="impact-card-title">Community Impact</h3>
+            <p class="impact-card-text">Illegal dumping creates eyesores, reduces quality of life, and disproportionately affects disadvantaged neighborhoods.</p>
+            <div class="impact-stat">
+              <span class="impact-stat-number">3x</span>
+              <span class="impact-stat-label">more likely in low-income areas</span>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Law & Enforcement Section -->
+<section class="law-section py-5">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="law-image-container">
+          <img src="assets/images/law-enforcement.jpg" alt="Law Enforcement" class="img-fluid rounded-3 shadow">
+          <div class="law-badge">
+            <mat-icon>gavel</mat-icon>
+            <span>Legal Consequences</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <h2 class="section-title mb-4">Dumping is a Crime</h2>
+        <p class="lead text-muted">Illegal dumping carries serious legal consequences. Here's what you need to know:</p>
+        
+        <div class="law-points">
+          <div class="law-point">
+            <div class="law-point-icon">
+              <mat-icon>warning</mat-icon>
+            </div>
+            <div class="law-point-content">
+              <h4>Fines & Penalties</h4>
+              <p>Fines can range from $500 to $50,000 depending on the severity and materials dumped.</p>
+            </div>
+          </div>
+          <div class="law-point">
+            <div class="law-point-icon">
+              <mat-icon>handcuffs</mat-icon>
+            </div>
+            <div class="law-point-content">
+              <h4>Criminal Charges</h4>
+              <p>Repeat offenders or hazardous material dumping can result in felony charges and jail time.</p>
+            </div>
+          </div>
+          <div class="law-point">
+            <div class="law-point-icon">
+              <mat-icon>record_voice_over</mat-icon>
+            </div>
+            <div class="law-point-content">
+              <h4>Whistleblower Protections</h4>
+              <p>Reporters are protected under state whistleblower laws and can remain anonymous.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="law-cta mt-4">
+          <a mat-stroked-button color="primary" class="me-3" href="#">
+            <mat-icon>menu_book</mat-icon>
+            View Local Laws
+          </a>
+         
+          <a mat-raised-button color="warn"  routerLink="/report-dumping">
+            <mat-icon>report</mat-icon>
+            Report a Violation
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Community Engagement Section -->
+<section id="community" class="py-5 community-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
+        <h2 class="display-5 fw-bold mb-4 text-white">Join the Movement!</h2>
+        <p class="lead mb-5 text-white">Become part of a growing network of citizens committed to keeping our communities clean and safe.</p>
+        
+        <div class="row g-4 mt-5">
+          <div class="col-md-4">
+            <mat-card class="h-100 community-card volunteer-card">
+              <div class="community-card-icon">
+                <mat-icon>volunteer_activism</mat-icon>
+              </div>
+              <h3>Volunteer</h3>
+              <p>Join cleanup events and monitoring programs in your area. No experience needed!</p>
+            </mat-card>
+          </div>
+          <div class="col-md-4">
+            <mat-card class="h-100 community-card clean-card">
+              <div class="community-card-icon">
+                <mat-icon>cleaning_services</mat-icon>
+              </div>
+              <h3>Cleanup Events</h3>
+              <p>Participate in organized cleanup days to restore affected areas.</p>
+            </mat-card>
+          </div>
+          <div class="col-md-4">
+            <mat-card class="h-100 community-card education-card">
+              <div class="community-card-icon">
+                <mat-icon>school</mat-icon>
+              </div>
+              <h3>Education Programs</h3>
+              <p>Help educate others about proper waste disposal and recycling.</p>
+            </mat-card>
+          </div>
+        </div>
+        
+        <button mat-raised-button  routerLink="/events" color="accent" class="mt-5">Get Involved Today</button>
+      </div>
+    </div>
+  </div>
+  <div class="community-testimonials mt-5">
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <mat-card class="testimonial-card">
+          <div class="row align-items-center">
+            <div class="col-md-4">
+              <div class="testimonial-image-container">
+                <img src="/assets/images/testimonial.jpeg" alt="Community Member" class="img-fluid rounded-circle">
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="testimonial-content">
+                <mat-icon class="testimonial-quote">format_quote</mat-icon>
+                <p class="testimonial-text">"After joining the neighborhood watch program, we've reduced illegal dumping in our area by 80%. The training and support from this initiative made all the difference!"</p>
+                <div class="testimonial-author">
+                  <strong>Maria Gonzalez</strong>
+                  <span>Community Leader, San Antonio</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Call-to-Action Section -->
+<section class="cta-section py-5 position-relative overflow-hidden">
+  <div class="container position-relative z-index-2">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
+        <h2 class="display-5 fw-bold text-white mb-4">Ready to Make a Difference?</h2>
+        <p class="lead text-white mb-5">Join thousands of others in protecting our communities and environment from illegal dumping.</p>
+        <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+          <a mat-raised-button color="accent" class="px-4 btn-pulse" routerLink="/membership">
+            <span class="btn-content">
+              <mat-icon>how_to_reg</mat-icon>
+              Become a Member
+            </span>
+          </a>
+          <a mat-stroked-button color="accent" class="px-4" routerLink="/events">
+            <span class="btn-content">
+              <mat-icon>local_activity</mat-icon>
+              Attend an Event
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cta-section-overlay"></div>
+</section>
+
+<!-- FAQ Section -->
+<section id="faq" class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 mb-4 mb-lg-0">
+        <div class="faq-image-container">
+          <img src="assets/images/faq-decorative.jpg" alt="FAQ" class="img-fluid rounded-3 shadow">
+          <div class="faq-image-overlay"></div>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <h2 class="section-title text-start mb-4">Frequently Asked Questions</h2>
+        <p class="lead mb-4">Find answers to common questions about illegal dumping and reporting.</p>
+        
+        <mat-accordion class="faq-accordion">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>What constitutes illegal dumping?</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>Illegal dumping is the disposal of waste on public or private property without proper authorization. This includes household trash, construction debris, appliances, hazardous materials, and any other waste not disposed of through proper channels.</p>
+          </mat-expansion-panel>
+          
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>What information should I include in my report?</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>Please provide as much detail as possible: location (address or GPS coordinates), description of the waste, date/time observed, photos if safe to take, and any information about vehicles or individuals involved.</p>
+          </mat-expansion-panel>
+          
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Is my report anonymous?</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>Yes, all reports can be submitted anonymously. However, providing contact information allows us to follow up if we need more details and to update you on the status of your report.</p>
+          </mat-expansion-panel>
+          
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>What happens after I submit a report?</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>Reports are reviewed and forwarded to the appropriate local authorities for investigation. Cleanup timelines vary based on the severity and location of the dumping.</p>
+          </mat-expansion-panel>
+          
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>How can I properly dispose of large items?</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>Most municipalities offer bulk item pickup or have designated drop-off locations. Hazardous materials should be taken to special collection facilities. Check with your local waste management department for specific guidelines.</p>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+  </div>
+</section>

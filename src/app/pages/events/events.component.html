@@ -1,0 +1,261 @@
+<div class="events-hero">
+    <div class="container py-5">
+      <div class="row align-items-center">
+        <div class="col-lg-8 mx-auto text-center">
+          <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInDown">Community Cleanup Events</h1>
+          <p class="lead mb-4 animate__animated animate__fadeIn animate__delay-1s">
+            Join hands with your neighbors to clean up and protect our environment. Together we can make a difference!
+          </p>
+          <div class="d-flex justify-content-center gap-3 animate__animated animate__fadeInUp animate__delay-1s">
+            <a routerLink="/report" mat-raised-button class="px-4 btn-pulse" style="background-color: #c87373; color: white; font-weight: 600;">
+              <span class="btn-content">
+                <mat-icon>event</mat-icon>
+                Create Event
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container my-5">
+    <!-- Upcoming Events Section -->
+    <section class="mb-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="section-title">Upcoming Events</h2>
+        <div class="event-filter">
+          <mat-form-field appearance="outline">
+            <mat-label>Filter by Location</mat-label>
+            <mat-select [(value)]="selectedLocation">
+              <mat-option value="all">All Locations</mat-option>
+              <mat-option *ngFor="let location of locations" [value]="location">{{location}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+  
+      <div class="row g-4">
+        <div *ngFor="let event of filteredEvents" class="col-md-6 col-lg-4">
+          <mat-card class="event-card h-100">
+            <div class="event-image-container">
+              <img [src]="event.image" [alt]="event.title" class="event-image">
+              <div class="event-date-badge">
+                <span class="event-day">{{event.date | date:'d'}}</span>
+                <span class="event-month">{{event.date | date:'MMM'}}</span>
+              </div>
+              <div class="event-status-badge" [ngClass]="{'upcoming': event.status === 'upcoming', 'ongoing': event.status === 'ongoing'}">
+                {{event.status | titlecase}}
+              </div>
+            </div>
+            <mat-card-content>
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <h3 class="event-title">{{event.title}}</h3>
+                <span class="event-location">
+                  <mat-icon>location_on</mat-icon>
+                  {{event.location}}
+                </span>
+              </div>
+              <p class="event-description">{{event.description}}</p>
+              <div class="event-meta">
+                <div class="event-time">
+                  <mat-icon>schedule</mat-icon>
+                  {{event.time}}
+                </div>
+                <div class="event-participants">
+                  <mat-icon>people</mat-icon>
+                  {{event.participants}} attending
+                </div>
+              </div>
+            </mat-card-content>
+            <mat-card-actions class="event-actions">
+              <button mat-stroked-button color="primary" (click)="openEventDialog(event)">
+                <mat-icon>info</mat-icon>
+                Details
+              </button>
+              <button mat-raised-button color="primary" (click)="joinEvent(event.id)">
+                <mat-icon>how_to_reg</mat-icon>
+                Join
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+  
+      <div *ngIf="filteredEvents.length === 0" class="text-center py-5">
+        <mat-icon class="no-events-icon">event_busy</mat-icon>
+        <h3 class="mt-3">No events found</h3>
+        <p class="text-muted">There are currently no events scheduled for this location.</p>
+        <button mat-raised-button color="primary" class="mt-3" routerLink="/report">
+          <mat-icon>add</mat-icon>
+          Create New Event
+        </button>
+      </div>
+    </section>
+  
+    <!-- Past Events Section -->
+    <section class="mb-5" *ngIf="pastEvents.length > 0">
+      <h2 class="section-title mb-4">Past Events</h2>
+      <div class="row g-4">
+        <div *ngFor="let event of pastEvents" class="col-md-6 col-lg-4">
+          <mat-card class="past-event-card h-100">
+            <div class="past-event-image-container">
+              <img [src]="event.image" [alt]="event.title" class="past-event-image">
+              <div class="past-event-overlay">
+                <span>Completed</span>
+              </div>
+            </div>
+            <mat-card-content>
+              <h3 class="past-event-title">{{event.title}}</h3>
+              <div class="past-event-meta">
+                <div>
+                  <mat-icon>location_on</mat-icon>
+                  {{event.location}}
+                </div>
+                <div>
+                  <mat-icon>event</mat-icon>
+                  {{event.date | date}}
+                </div>
+              </div>
+              <div class="past-event-stats">
+                <div class="stat-item">
+                  <div class="stat-number">{{event.participants}}</div>
+                  <div class="stat-label">Volunteers</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-number">{{event.bagsCollected}}</div>
+                  <div class="stat-label">Bags</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-number">{{event.weight}} kg</div>
+                  <div class="stat-label">Waste</div>
+                </div>
+              </div>
+            </mat-card-content>
+            <mat-card-actions class="past-event-actions">
+              <button mat-stroked-button color="primary" (click)="openEventDialog(event)">
+                <mat-icon>photo_library</mat-icon>
+                Gallery
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Event Highlights Section -->
+    <section class="event-highlights py-5 mb-5">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h2 class="section-title mb-4">Our Impact Through Events</h2>
+          <p class="lead mb-4">Community cleanups have made a significant difference in our fight against illegal dumping.</p>
+          
+          <div class="highlight-stats">
+            <div class="highlight-stat">
+              <div class="stat-icon">
+                <mat-icon>groups</mat-icon>
+              </div>
+              <div>
+                <h3 class="stat-number">5,000+</h3>
+                <p class="stat-label">Volunteers Engaged</p>
+              </div>
+            </div>
+            <div class="highlight-stat">
+              <div class="stat-icon">
+                <mat-icon>delete</mat-icon>
+              </div>
+              <div>
+                <h3 class="stat-number">120+ Tons</h3>
+                <p class="stat-label">Waste Collected</p>
+              </div>
+            </div>
+            <div class="highlight-stat">
+              <div class="stat-icon">
+                <mat-icon>location_on</mat-icon>
+              </div>
+              <div>
+                <h3 class="stat-number">85</h3>
+                <p class="stat-label">Locations Cleaned</p>
+              </div>
+            </div>
+          </div>
+          
+          <button mat-raised-button color="primary" class="mt-4">
+            <mat-icon>download</mat-icon>
+            Download Full Report
+          </button>
+        </div>
+        <div class="col-lg-6">
+          <div class="highlight-image-container">
+            <img src="assets/images/event-highlight.jpg" alt="Community Cleanup" class="img-fluid rounded-3 shadow">
+            <div class="highlight-image-badge">
+              <mat-icon>star</mat-icon>
+              <span>Featured Event</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <!-- CTA Section -->
+    <section class="event-cta py-5 text-center rounded-3 mb-5">
+      <h2 class="display-5 fw-bold text-white mb-4">Ready to Organize Your Own Event?</h2>
+      <p class="lead text-white mb-5">We provide all the tools and resources you need to organize a successful community cleanup.</p>
+      <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+        <a mat-raised-button color="accent" class="px-4 btn-pulse" routerLink="/report">
+          <span class="btn-content">
+            <mat-icon>event</mat-icon>
+            Create Event
+          </span>
+        </a>
+        <a mat-stroked-button color="accent" class="px-4" href="#">
+          <span class="btn-content">
+            <mat-icon>menu_book</mat-icon>
+            Guide & Resources
+          </span>
+        </a>
+      </div>
+    </section>
+  
+    <!-- Testimonials Section -->
+    <section class="event-testimonials mb-5">
+      <h2 class="section-title text-center mb-5">What Volunteers Say</h2>
+      
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <mat-card class="testimonial-card h-100">
+            <mat-card-content>
+              <div class="testimonial-content">
+                <mat-icon class="testimonial-quote">format_quote</mat-icon>
+                <p class="testimonial-text">"The community cleanup was incredibly rewarding. It's amazing what we can accomplish when we work together. The organizers provided all the necessary tools and made it easy for everyone to participate."</p>
+                <div class="testimonial-author">
+                  <img src="assets/images/testimonial1.jpg" alt="Sarah Johnson" class="testimonial-avatar">
+                  <div>
+                    <strong>Sarah Johnson</strong>
+                    <span>Regular Volunteer</span>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="col-md-6 mb-4">
+          <mat-card class="testimonial-card h-100">
+            <mat-card-content>
+              <div class="testimonial-content">
+                <mat-icon class="testimonial-quote">format_quote</mat-icon>
+                <p class="testimonial-text">"As a first-time participant, I was impressed by how well-organized the event was. It felt great to make a visible difference in my neighborhood. I'll definitely be joining future cleanups!"</p>
+                <div class="testimonial-author">
+                  <img src="assets/images/testimonial2.jpg" alt="Michael Chen" class="testimonial-avatar">
+                  <div>
+                    <strong>Michael Chen</strong>
+                    <span>First-time Volunteer</span>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </section>
+  </div>

@@ -1,0 +1,81 @@
+<div class="container my-5">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Report Illegal Dumping</mat-card-title>
+      <mat-card-subtitle>Help keep your community clean</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Title</mat-label>
+              <input matInput formControlName="title" required>
+              <mat-error *ngIf="reportForm.get('title')?.hasError('required')">
+                Title is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Type of Waste</mat-label>
+              <mat-select formControlName="wasteType" required>
+                <mat-option *ngFor="let type of wasteTypes" [value]="type">
+                  {{type}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="reportForm.get('wasteType')?.hasError('required')">
+                Waste type is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-12">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Location</mat-label>
+              <input matInput formControlName="location" required>
+              <mat-icon matSuffix>location_on</mat-icon>
+              <mat-error *ngIf="reportForm.get('location')?.hasError('required')">
+                Location is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Date Observed</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="dateObserved" required>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="reportForm.get('dateObserved')?.hasError('required')">
+                Date is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Upload Photos</mat-label>
+              <input type="file" multiple (change)="onFileSelected($event)" accept="image/*">
+              <mat-icon matSuffix>photo_camera</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-12">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Description</mat-label>
+              <textarea matInput formControlName="description" rows="3"></textarea>
+            </mat-form-field>
+          </div>
+          <div class="col-12 text-center">
+            <button mat-raised-button color="primary" type="submit" [disabled]="!reportForm.valid">
+              Submit Report
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

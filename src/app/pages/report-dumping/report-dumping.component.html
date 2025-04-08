@@ -1,0 +1,316 @@
+<div class="report-hero">
+    <div class="container py-5">
+      <div class="row align-items-center">
+        <div class="col-lg-8 mx-auto text-center">
+          <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInDown">Report Illegal Dumping</h1>
+          <p class="lead mb-4 animate__animated animate__fadeIn animate__delay-1s">
+            Help keep your community clean by reporting illegal waste dumping activities.
+            Your report will be sent to local authorities for investigation.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <mat-card class="report-card">
+          <mat-card-header>
+            <mat-card-title>Dumping Report Form</mat-card-title>
+            <mat-card-subtitle>All fields are required unless marked optional</mat-card-subtitle>
+          </mat-card-header>
+  
+          <mat-card-content>
+            <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
+              <!-- Location Section -->
+              <div class="form-section">
+                <h3 class="section-title">
+                  <mat-icon>location_on</mat-icon>
+                  Location Details
+                </h3>
+                
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Address or Nearest Landmark</mat-label>
+                  <input matInput formControlName="location" required>
+                  <mat-icon matSuffix>search</mat-icon>
+                  <mat-hint>Be as specific as possible</mat-hint>
+                </mat-form-field>
+  
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>City</mat-label>
+                      <input matInput formControlName="city" required>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>State/Province</mat-label>
+                      <mat-select formControlName="state" required>
+                        <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+  
+                <div class="map-container mb-3">
+                  <div class="map-placeholder">
+                    <mat-icon>map</mat-icon>
+                    <p>Map will appear here when location is entered</p>
+                  </div>
+                  <button mat-stroked-button color="primary" type="button" class="mt-2">
+                    <mat-icon>my_location</mat-icon>
+                    Use My Current Location
+                  </button>
+                </div>
+              </div>
+  
+              <!-- Incident Details -->
+              <div class="form-section">
+                <h3 class="section-title">
+                  <mat-icon>report_problem</mat-icon>
+                  Incident Details
+                </h3>
+                
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Type of Waste</mat-label>
+                  <mat-select formControlName="wasteType" required multiple>
+                    <mat-option *ngFor="let type of wasteTypes" [value]="type">{{type}}</mat-option>
+                  </mat-select>
+                  <mat-hint>Select all that apply</mat-hint>
+                </mat-form-field>
+  
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Approximate Size of Dumping</mat-label>
+                  <mat-select formControlName="size" required>
+                    <mat-option *ngFor="let size of sizes" [value]="size">{{size}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+  
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Date Observed</mat-label>
+                      <input matInput [matDatepicker]="picker" formControlName="date" required>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Time Observed</mat-label>
+                      <input matInput type="time" formControlName="time" required>
+                    </mat-form-field>
+                  </div>
+                </div>
+  
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Additional Details</mat-label>
+                  <textarea matInput formControlName="description" rows="3"></textarea>
+                  <mat-hint>Describe what you saw, any vehicles involved, etc.</mat-hint>
+                </mat-form-field>
+              </div>
+  
+              <!-- Evidence Section -->
+              <div class="form-section">
+                <h3 class="section-title">
+                  <mat-icon>photo_camera</mat-icon>
+                  Evidence (Optional but Recommended)
+                </h3>
+                
+                <div class="upload-container">
+                  <input type="file" id="fileUpload" (change)="onFileSelected($event)" multiple accept="image/*" style="display: none;">
+                  <label for="fileUpload" mat-stroked-button color="primary">
+                    <mat-icon>cloud_upload</mat-icon>
+                    Upload Photos
+                  </label>
+                  <span class="upload-hint">Maximum 5 photos (5MB each)</span>
+                </div>
+  
+                <div class="preview-container" *ngIf="previewUrls.length > 0">
+                  <div class="image-preview" *ngFor="let url of previewUrls; let i = index">
+                    <img [src]="url" alt="Uploaded photo">
+                    <button mat-icon-button class="remove-btn" (click)="removeImage(i)">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                  </div>
+                </div>
+  
+                <mat-form-field appearance="outline" class="w-100 mt-3">
+                  <mat-label>Video Link (Optional)</mat-label>
+                  <input matInput formControlName="videoLink" placeholder="https://youtube.com/...">
+                  <mat-icon matSuffix>videocam</mat-icon>
+                  <mat-hint>YouTube, Google Drive, or other video sharing link</mat-hint>
+                </mat-form-field>
+              </div>
+  
+              <!-- Reporter Info -->
+              <div class="form-section">
+                <h3 class="section-title">
+                  <mat-icon>person</mat-icon>
+                  Your Information
+                </h3>
+                
+                <mat-checkbox formControlName="anonymous" class="mb-3">
+                  Submit anonymously
+                </mat-checkbox>
+  
+                <div *ngIf="!reportForm.get('anonymous')?.value">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>First Name</mat-label>
+                        <input matInput formControlName="firstName">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput formControlName="lastName">
+                      </mat-form-field>
+                    </div>
+                  </div>
+  
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" type="email">
+                    <mat-hint>For follow-up questions about your report</mat-hint>
+                  </mat-form-field>
+  
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Phone (Optional)</mat-label>
+                    <input matInput formControlName="phone" type="tel">
+                  </mat-form-field>
+                </div>
+              </div>
+  
+              <!-- Submit Section -->
+              <div class="submit-section">
+                <mat-checkbox formControlName="agreeTerms" required class="mb-3">
+                  I confirm that the information provided is accurate to the best of my knowledge
+                </mat-checkbox>
+  
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                  <button mat-stroked-button color="primary" type="button" routerLink="/">
+                    Cancel
+                  </button>
+                  <button mat-raised-button color="primary" type="submit" [disabled]="!reportForm.valid || submitting">
+                    <span *ngIf="!submitting">
+                      <mat-icon>send</mat-icon>
+                      Submit Report
+                    </span>
+                    <span *ngIf="submitting">
+                      <mat-spinner diameter="20"></mat-spinner>
+                      Submitting...
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <!-- What Happens Next Section -->
+  <section class="next-steps py-5 bg-light" style="width: 100vw;margin-left: calc(-50vw + 50%);">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h2 class="section-title mb-5">What Happens After You Report</h2>
+          
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="step-card">
+                <div class="step-number">1</div>
+                <mat-icon class="step-icon">assignment</mat-icon>
+                <h3>Report Received</h3>
+                <p>Your report is logged into our system and assigned a case number</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="step-card">
+                <div class="step-number">2</div>
+                <mat-icon class="step-icon">verified</mat-icon>
+                <h3>Review Process</h3>
+                <p>Local authorities review your report and evidence within 3 business days</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="step-card">
+                <div class="step-number">3</div>
+                <mat-icon class="step-icon">clean_hands</mat-icon>
+                <h3>Action Taken</h3>
+                <p>If verified, authorities will arrange cleanup and investigate the source</p>
+              </div>
+            </div>
+          </div>
+  
+          <div class="mt-5">
+            <p class="lead">You'll receive updates on your report status if you provided contact information</p>
+            <button mat-stroked-button color="primary" routerLink="/faq">
+              <mat-icon>help</mat-icon>
+              Read Our FAQ
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Safety Tips Section -->
+  <section class="safety-tips py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h2 class="section-title text-start mb-4">Safety Tips for Reporting</h2>
+          <p class="lead text-muted">Your safety is our priority. Follow these guidelines when documenting illegal dumping:</p>
+          
+          <mat-list>
+            <mat-list-item *ngFor="let tip of safetyTips">
+              <mat-icon matListItemIcon>check_circle</mat-icon>
+              <div matListItemTitle>{{tip.title}}</div>
+              <div matListItemLine>{{tip.description}}</div>
+            </mat-list-item>
+          </mat-list>
+        </div>
+        <div class="col-lg-6">
+          <div class="safety-image-container">
+            <img src="assets/images/safety-tips.jpg" alt="Safety Tips" class="img-fluid rounded-3 shadow">
+            <div class="safety-badge">
+              <mat-icon>security</mat-icon>
+              <span>Stay Safe</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="report-cta py-5 position-relative overflow-hidden">
+    <div class="container position-relative z-index-2">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h2 class="display-5 fw-bold text-white mb-4">See Something? Say Something!</h2>
+          <p class="lead text-white mb-5">Your reports help keep our community clean and hold polluters accountable.</p>
+          <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+            <a mat-raised-button color="accent" class="px-4 btn-pulse" routerLink="/report">
+              <span class="btn-content">
+                <mat-icon>report</mat-icon>
+                Make Another Report
+              </span>
+            </a>
+            <a mat-stroked-button color="accent" class="px-4" routerLink="/events">
+              <span class="btn-content">
+                <mat-icon>event</mat-icon>
+                Join a Cleanup Event
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cta-section-overlay"></div>
+  </section>

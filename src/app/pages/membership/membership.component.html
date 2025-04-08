@@ -1,0 +1,200 @@
+<!-- Membership Registration Component (would be a separate route like /membership) -->
+<div class="membership-section py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <mat-card class="membership-card">
+            <mat-card-header>
+              <div class="membership-header">
+                <mat-icon class="membership-icon" style="color: #2e7d32;">how_to_reg</mat-icon>
+                <h2 class="section-title mb-4" style="color: black;">Become a Member</h2>
+              </div>
+              <mat-card-subtitle>Join our community of environmental champions</mat-card-subtitle>
+            </mat-card-header>
+  
+            <mat-card-content>
+              <form [formGroup]="membershipForm" class="membership-form">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>First Name</mat-label>
+                      <input matInput formControlName="firstName" required>
+                      <mat-error *ngIf="membershipForm.get('firstName')?.hasError('required')">
+                        First name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Last Name</mat-label>
+                      <input matInput formControlName="lastName" required>
+                      <mat-error *ngIf="membershipForm.get('lastName')?.hasError('required')">
+                        Last name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+  
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Email</mat-label>
+                  <input matInput formControlName="email" type="email" required>
+                  <mat-error *ngIf="membershipForm.get('email')?.hasError('required')">
+                    Email is required
+                  </mat-error>
+                  <mat-error *ngIf="membershipForm.get('email')?.hasError('email')">
+                    Please enter a valid email
+                  </mat-error>
+                </mat-form-field>
+  
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Phone Number</mat-label>
+                  <input matInput formControlName="phone">
+                  <mat-hint>Optional - for event notifications</mat-hint>
+                </mat-form-field>
+  
+                <div class="address-section">
+                  <h3 class="section-subtitle">
+                    <mat-icon>location_on</mat-icon>
+                    Address Information
+                  </h3>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Street Address</mat-label>
+                        <input matInput formControlName="street">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>City</mat-label>
+                        <input matInput formControlName="city">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>State/Province</mat-label>
+                        <input matInput formControlName="state">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>ZIP/Postal Code</mat-label>
+                        <input matInput formControlName="zipCode">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="membership-options">
+                  <h3 class="section-subtitle">
+                    <mat-icon>star</mat-icon>
+                    Membership Level
+                  </h3>
+                  <mat-radio-group formControlName="membershipLevel" class="membership-levels">
+                    <mat-radio-button value="basic" class="membership-option">
+                      <div class="option-content">
+                        <h4>Basic Member (Free)</h4>
+                        <ul>
+                          <li>Receive our newsletter</li>
+                          <li>Access to community forums</li>
+                          <li>Basic reporting tools</li>
+                        </ul>
+                      </div>
+                    </mat-radio-button>
+  
+                    <mat-radio-button value="supporter" class="membership-option">
+                      <div class="option-content">
+                        <h4>Supporter ($5/month)</h4>
+                        <ul>
+                          <li>All Basic benefits</li>
+                          <li>Advanced reporting tools</li>
+                          <li>Supporter badge on profile</li>
+                          <li>Early access to events</li>
+                        </ul>
+                      </div>
+                    </mat-radio-button>
+  
+                    <mat-radio-button value="champion" class="membership-option">
+                      <div class="option-content">
+                        <h4>Community Champion ($10/month)</h4>
+                        <ul>
+                          <li>All Supporter benefits</li>
+                          <li>Exclusive Champion events</li>
+                          <li>Featured in our newsletter</li>
+                          <li>Free event t-shirt annually</li>
+                        </ul>
+                      </div>
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+  
+                <div class="additional-options">
+                  <mat-checkbox formControlName="volunteerInterest">I'm interested in volunteering opportunities</mat-checkbox>
+                  <mat-checkbox formControlName="newsletterConsent">I want to receive the monthly newsletter</mat-checkbox>
+                  <mat-checkbox formControlName="termsAgreement" required>I agree to the terms and conditions</mat-checkbox>
+                </div>
+              </form>
+            </mat-card-content>
+  
+            <mat-card-actions class="membership-actions">
+              <button mat-stroked-button routerLink="/" color="primary" class="me-2">
+                <mat-icon>arrow_back</mat-icon>
+                Back
+              </button>
+              <button mat-raised-button color="primary" (click)="submitMembership()" [disabled]="!membershipForm.valid">
+                <mat-icon>how_to_reg</mat-icon>
+                Complete Membership
+              </button>
+            </mat-card-actions>
+          </mat-card>
+  
+          <div class="membership-benefits mt-5">
+            <h2 class="text-center mb-4">Member Benefits</h2>
+            <div class="row g-4">
+              <div class="col-md-4">
+                <mat-card class="benefit-card h-100">
+                  <mat-card-header>
+                    <div mat-card-avatar class="benefit-avatar">
+                      <mat-icon>groups</mat-icon>
+                    </div>
+                    <mat-card-title>Community</mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <p>Join a network of like-minded individuals working to keep communities clean and safe.</p>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <div class="col-md-4">
+                <mat-card class="benefit-card h-100">
+                  <mat-card-header>
+                    <div mat-card-avatar class="benefi-avatar">
+                      <mat-icon>event_available</mat-icon>
+                    </div>
+                    <mat-card-title>Events</mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <p>Get exclusive access to cleanup events, workshops, and community meetings.</p>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <div class="col-md-4">
+                <mat-card class="benefit-card h-100">
+                  <mat-card-header>
+                    <div mat-card-avatar class="benefit-avatar">
+                      <mat-icon>leaderboard</mat-icon>
+                    </div>
+                    <mat-card-title>Impact</mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <p>See the direct impact of your contributions through our member dashboard.</p>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

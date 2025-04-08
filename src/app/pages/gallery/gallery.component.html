@@ -1,0 +1,53 @@
+<div class="gallery-section py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Community Gallery</h2>
+        <p class="lead text-muted">See the impact we're making together through cleanup efforts and community action</p>
+      </div>
+  
+      <!-- Gallery Filters -->
+      <div class="gallery-filters mb-5">
+        <mat-button-toggle-group [(value)]="filter" class="filter-group" aria-label="Gallery Filter">
+          <mat-button-toggle value="all" class="filter-button">All</mat-button-toggle>
+          <mat-button-toggle value="before" class="filter-button">Before</mat-button-toggle>
+          <mat-button-toggle value="after" class="filter-button">After</mat-button-toggle>
+          <mat-button-toggle value="events" class="filter-button">Events</mat-button-toggle>
+          <mat-button-toggle value="volunteers" class="filter-button">Volunteers</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+  
+      <!-- Gallery Grid -->
+      <div class="gallery-grid">
+        <div *ngFor="let item of filteredItems" class="gallery-item" [class.wide]="item.wide" [class.tall]="item.tall">
+          <mat-card class="gallery-card">
+            <div class="gallery-image-container">
+              <img [src]="item.image" [alt]="item.title" class="gallery-image">
+              <div class="gallery-overlay">
+                <div class="gallery-badge" [ngClass]="item.type">
+                  {{ item.type | titlecase }}
+                </div>
+                <div class="gallery-content">
+                  <h3 class="gallery-title">{{ item.title }}</h3>
+                  <p class="gallery-description">{{ item.description }}</p>
+                  <div class="gallery-date">
+                    <mat-icon>event</mat-icon>
+                    {{ item.date | date }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+  
+      <!-- Load More Button -->
+      <div class="text-center mt-5">
+        <button mat-raised-button color="primary" class="px-4" (click)="loadMore()">
+          <span class="btn-content">
+            <mat-icon>add</mat-icon>
+            Load More
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
