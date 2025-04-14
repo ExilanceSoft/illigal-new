@@ -1,0 +1,44 @@
+<!-- chatbot.component.html -->
+<mat-card class="chatbot-container">
+    <mat-card-header>
+      <div mat-card-avatar class="chatbot-avatar">
+        <mat-icon>smart_toy</mat-icon>
+      </div>
+      <mat-card-title>DumpBot Assistant</mat-card-title>
+      <mat-card-subtitle>Illegal Dumping & Waste Management</mat-card-subtitle>
+    </mat-card-header>
+  
+    <mat-card-content class="chat-messages">
+      <div *ngFor="let message of messages" 
+           [class.user-message]="message.isUser" 
+           [class.bot-message]="!message.isUser"
+           class="message">
+        <div class="message-content">
+          {{ message.text }}
+        </div>
+      </div>
+      <div *ngIf="isLoading" class="message bot-message">
+        <div class="message-content loading">
+          <mat-spinner [diameter]="20"></mat-spinner>
+          <span>Thinking...</span>
+        </div>
+      </div>
+    </mat-card-content>
+  
+    <mat-card-actions>
+      <form [formGroup]="chatForm" (ngSubmit)="sendMessage()" class="chat-input-form">
+        <mat-form-field appearance="outline" class="full-width">
+          <input matInput 
+                 placeholder="Ask about illegal dumping..." 
+                 formControlName="message"
+                 (keyup.enter)="sendMessage()">
+          <button mat-icon-button matSuffix 
+                  color="primary" 
+                  type="submit"
+                  [disabled]="!chatForm.valid || isLoading">
+            <mat-icon>send</mat-icon>
+          </button>
+        </mat-form-field>
+      </form>
+    </mat-card-actions>
+  </mat-card>

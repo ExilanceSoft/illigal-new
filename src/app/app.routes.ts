@@ -49,6 +49,10 @@ export const routes: Routes = [
     path: 'login', 
     loadComponent: () => import('./pages/login/login.component').then(c => c.LoginComponent) 
   },
+  {
+    path:'chatbot',
+    loadComponent: () => import('./pages/chatbot/chatbot.component').then(c =>c.ChatbotComponent)
+  },
   { 
     path: 'register', 
     loadComponent: () => import('./pages/register/register.component').then(c => c.RegisterComponent) 

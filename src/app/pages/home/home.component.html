@@ -406,4 +406,15 @@
       </div>
     </div>
   </div>
+  <!-- Add this at the bottom of home.component.html -->
+<div class="chatbot-floating-button" (click)="openChatbot()">
+  <mat-icon>smart_toy</mat-icon>
+</div>
+
+<dialog #chatbotDialog class="chatbot-dialog">
+  <app-chatbot></app-chatbot>
+  <button mat-icon-button class="close-dialog" (click)="closeChatbot()">
+    <mat-icon>close</mat-icon>
+  </button>
+</dialog>
 </section>

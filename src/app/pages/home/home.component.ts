@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { CountUpModule } from 'ngx-countup';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { ChatbotComponent } from '../chatbot/chatbot.component';
 
 @Component({
   standalone: true,
@@ -16,18 +17,28 @@ import { MatExpansionModule } from '@angular/material/expansion';
     RouterModule, 
     MatIconModule,
     CountUpModule,
-    MatExpansionModule
+    MatExpansionModule,
+    ChatbotComponent
+
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('chatbotDialog') chatbotDialog!: ElementRef<HTMLDialogElement>;
+
   stats = [
     { value: 1240, label: 'Reports Filed', current: 0, icon: 'description' },
     { value: 85, label: 'Cleanup Events', current: 0, icon: 'groups' },
     { value: 32, label: 'Active Communities', current: 0, icon: 'location_city' }
   ];
+  openChatbot(): void {
+    this.chatbotDialog.nativeElement.showModal();
+  }
 
+  closeChatbot(): void {
+    this.chatbotDialog.nativeElement.close();
+  }
   features = [
     {
       icon: 'report',

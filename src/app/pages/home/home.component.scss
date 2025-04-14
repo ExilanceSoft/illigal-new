@@ -1,0 +1,48 @@
+// home.component.scss
+.chatbot-floating-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: #388e3c;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: transform 0.3s;
+  
+    &:hover {
+      transform: scale(1.1);
+    }
+  
+    mat-icon {
+      font-size: 30px;
+      width: 30px;
+      height: 30px;
+    }
+  }
+  
+  .chatbot-dialog {
+    border: none;
+    border-radius: 12px;
+    padding: 0;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+  
+    &::backdrop {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+  
+  .close-dialog {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 100;
+  }
