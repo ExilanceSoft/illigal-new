@@ -1,13 +1,23 @@
 <div class="container my-4">
-  <h2 class="mb-4">Admin Dashboard</h2>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Admin Dashboard</h2>
+    <button mat-raised-button color="primary" (click)="refreshData()">
+      <mat-icon>refresh</mat-icon> Refresh
+    </button>
+  </div>
 
+  <!-- Statistics Cards -->
   <div class="row g-4 mb-4">
     <div *ngFor="let stat of stats" class="col-md-3">
       <mat-card [color]="stat.color" class="text-white">
         <mat-card-content>
           <div class="d-flex justify-content-between align-items-center">
             <div>
-              <h3 class="mb-0">{{stat.value}}</h3>
+              <h3 class="mb-0">
+                <span *ngIf="!isLoadingStats && !errorStats">{{stat.value}}</span>
+                <mat-spinner *ngIf="isLoadingStats" diameter="24"></mat-spinner>
+                <mat-icon *ngIf="errorStats && !isLoadingStats" class="text-warning">error</mat-icon>
+              </h3>
               <p class="mb-0">{{stat.title}}</p>
             </div>
             <mat-icon class="stat-icon">{{stat.icon}}</mat-icon>
@@ -18,13 +28,27 @@
   </div>
 
   <div class="row g-4">
+    <!-- Recent Reports -->
     <div class="col-lg-8">
       <mat-card>
         <mat-card-header>
           <mat-card-title>Recent Reports</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <table mat-table [dataSource]="recentReports" class="w-100">
+          <div *ngIf="isLoadingReports" class="text-center py-4">
+            <mat-spinner diameter="50"></mat-spinner>
+            <p>Loading reports...</p>
+          </div>
+          
+          <div *ngIf="errorReports && !isLoadingReports" class="text-center py-4">
+            <mat-icon color="warn" class="mb-2" style="font-size: 48px;">error</mat-icon>
+            <p>Failed to load reports</p>
+            <button mat-button color="primary" (click)="loadRecentReports()">
+              <mat-icon>refresh</mat-icon> Try Again
+            </button>
+          </div>
+
+          <table *ngIf="!isLoadingReports && !errorReports" mat-table [dataSource]="recentReports" class="w-100">
             <ng-container matColumnDef="id">
               <th mat-header-cell *matHeaderCellDef>ID</th>
               <td mat-cell *matCellDef="let report">{{report.id}}</td>
@@ -57,32 +81,54 @@
             <ng-container matColumnDef="actions">
               <th mat-header-cell *matHeaderCellDef>Actions</th>
               <td mat-cell *matCellDef="let report">
-                <button mat-icon-button color="primary">
+                <button mat-icon-button color="primary" (click)="viewReport(report.id)">
                   <mat-icon>visibility</mat-icon>
                 </button>
               </td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="['id', 'type', 'location', 'date', 'status', 'actions']"></tr>
-            <tr mat-row *matRowDef="let row; columns: ['id', 'type', 'location', 'date', 'status', 'actions'];"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
         </mat-card-content>
       </mat-card>
     </div>
 
+    <!-- Upcoming Events -->
     <div class="col-lg-4">
       <mat-card>
         <mat-card-header>
           <mat-card-title>Upcoming Events</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <div *ngFor="let event of upcomingEvents" class="mb-3">
-            <h4>{{event.title}}</h4>
-            <p class="mb-1"><mat-icon class="me-1">event</mat-icon> {{event.date}}</p>
-            <p class="mb-1"><mat-icon class="me-1">location_on</mat-icon> {{event.location}}</p>
-            <p class="mb-2"><mat-icon class="me-1">people</mat-icon> {{event.volunteers}} volunteers</p>
-            <button mat-stroked-button color="primary" class="w-100">View Details</button>
-            <mat-divider class="my-3"></mat-divider>
+          <div *ngIf="isLoadingEvents" class="text-center py-4">
+            <mat-spinner diameter="50"></mat-spinner>
+            <p>Loading events...</p>
+          </div>
+          
+          <div *ngIf="errorEvents && !isLoadingEvents" class="text-center py-4">
+            <mat-icon color="warn" class="mb-2" style="font-size: 48px;">error</mat-icon>
+            <p>Failed to load events</p>
+            <button mat-button color="primary" (click)="loadUpcomingEvents()">
+              <mat-icon>refresh</mat-icon> Try Again
+            </button>
+          </div>
+
+          <div *ngIf="!isLoadingEvents && !errorEvents">
+            <div *ngFor="let event of upcomingEvents" class="mb-3">
+              <h4>{{event.title}}</h4>
+              <p class="mb-1"><mat-icon class="me-1">event</mat-icon> {{event.date}}</p>
+              <p class="mb-1"><mat-icon class="me-1">location_on</mat-icon> {{event.location}}</p>
+              <p class="mb-2"><mat-icon class="me-1">people</mat-icon> {{event.volunteers}} volunteers</p>
+              <button mat-stroked-button color="primary" class="w-100" (click)="viewEvent(event.title)">
+                View Details
+              </button>
+              <mat-divider class="my-3"></mat-divider>
+            </div>
+
+            <div *ngIf="upcomingEvents.length === 0" class="text-center py-3">
+              <p>No upcoming events</p>
+            </div>
           </div>
         </mat-card-content>
       </mat-card>

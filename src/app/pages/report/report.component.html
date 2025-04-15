@@ -8,16 +8,40 @@
     <mat-card-content>
       <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
         <div class="row g-3">
-          <div class="col-md-6">
+          <!-- Location -->
+          <div class="col-12">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Title</mat-label>
-              <input matInput formControlName="title" required>
-              <mat-error *ngIf="reportForm.get('title')?.hasError('required')">
-                Title is required
+              <mat-label>Location</mat-label>
+              <input matInput formControlName="location" required>
+              <mat-icon matSuffix>location_on</mat-icon>
+              <mat-error *ngIf="reportForm.get('location')?.hasError('required')">
+                Location is required
               </mat-error>
             </mat-form-field>
           </div>
 
+          <!-- City and State -->
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>City</mat-label>
+              <input matInput formControlName="city" required>
+              <mat-error *ngIf="reportForm.get('city')?.hasError('required')">
+                City is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>State</mat-label>
+              <input matInput formControlName="state" required>
+              <mat-error *ngIf="reportForm.get('state')?.hasError('required')">
+                State is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Waste Type -->
           <div class="col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Type of Waste</mat-label>
@@ -32,24 +56,23 @@
             </mat-form-field>
           </div>
 
-          <div class="col-12">
+          <!-- Size -->
+          <div class="col-md-6">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Location</mat-label>
-              <input matInput formControlName="location" required>
-              <mat-icon matSuffix>location_on</mat-icon>
-              <mat-error *ngIf="reportForm.get('location')?.hasError('required')">
-                Location is required
+              <mat-label>Size</mat-label>
+              <input matInput formControlName="size" required>
+              <mat-error *ngIf="reportForm.get('size')?.hasError('required')">
+                Size is required
               </mat-error>
             </mat-form-field>
           </div>
 
+          <!-- Date and Time -->
           <div class="col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Date Observed</mat-label>
-              <input matInput [matDatepicker]="picker" formControlName="dateObserved" required>
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-              <mat-error *ngIf="reportForm.get('dateObserved')?.hasError('required')">
+              <input matInput type="date" formControlName="date" required>
+              <mat-error *ngIf="reportForm.get('date')?.hasError('required')">
                 Date is required
               </mat-error>
             </mat-form-field>
@@ -57,18 +80,74 @@
 
           <div class="col-md-6">
             <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Time Observed</mat-label>
+              <input matInput type="time" formControlName="time" required>
+              <mat-error *ngIf="reportForm.get('time')?.hasError('required')">
+                Time is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Photos -->
+          <div class="col-12">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Upload Photos</mat-label>
               <input type="file" multiple (change)="onFileSelected($event)" accept="image/*">
               <mat-icon matSuffix>photo_camera</mat-icon>
             </mat-form-field>
           </div>
 
+          <!-- Description -->
           <div class="col-12">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Description</mat-label>
               <textarea matInput formControlName="description" rows="3"></textarea>
             </mat-form-field>
           </div>
+
+          <!-- Video Link -->
+          <div class="col-12">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Video Link (Optional)</mat-label>
+              <input matInput formControlName="videoLink">
+            </mat-form-field>
+          </div>
+
+          <!-- Personal Info -->
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>First Name</mat-label>
+              <input matInput formControlName="firstName">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Last Name</mat-label>
+              <input matInput formControlName="lastName">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Email</mat-label>
+              <input matInput type="email" formControlName="email">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Phone</mat-label>
+              <input matInput formControlName="phone">
+            </mat-form-field>
+          </div>
+
+          <!-- Anonymous Checkbox -->
+          <div class="col-12">
+            <mat-checkbox formControlName="anonymous">Submit anonymously</mat-checkbox>
+          </div>
+
+          <!-- Submit Button -->
           <div class="col-12 text-center">
             <button mat-raised-button color="primary" type="submit" [disabled]="!reportForm.valid">
               Submit Report

@@ -1,0 +1,61 @@
+.container {
+    padding: 20px;
+  }
+  
+  .stat-icon {
+    font-size: 40px;
+    height: 40px;
+    width: 40px;
+    opacity: 0.8;
+  }
+  
+  .status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: capitalize;
+    
+    &.pending {
+      background-color: #FFF3E0;
+      color: #E65100;
+    }
+    
+    &.in-progress {
+      background-color: #E3F2FD;
+      color: #0D47A1;
+    }
+    
+    &.completed {
+      background-color: #E8F5E9;
+      color: #1B5E20;
+    }
+  }
+  
+  .mat-card {
+    height: 100%;
+    
+    &[color="primary"] {
+      background-color: #3f51b5;
+    }
+    
+    &[color="accent"] {
+      background-color: #ff4081;
+    }
+    
+    &[color="warn"] {
+      background-color: #f44336;
+    }
+  }
+  
+  .mat-table {
+    width: 100%;
+    
+    th {
+      font-weight: 600;
+    }
+  }
+  
+  .mat-divider {
+    border-top-color: rgba(0, 0, 0, 0.1);
+  }
